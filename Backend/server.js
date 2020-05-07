@@ -1,5 +1,5 @@
-const express = require("express");
-const nunjucks = require("nunjucks");
+const express = require("./node_modules/express");
+const nunjucks = require("./node_modules/nunjucks");
 const routes = require("./routes");
 
 const server = express();

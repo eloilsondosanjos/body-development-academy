@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require("./node_modules/express");
 const routes = express.Router();
 
 routes.get("/", function (req, res) {
   return res.redirect("/instructors");
 });
 routes.get("/instructors", function (req, res) {
-  return res.send("instructors");
+  return res.render("instructors/index.njk");
 });
 routes.get("/members", function (req, res) {
   return res.send("members");
