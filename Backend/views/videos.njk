@@ -1,0 +1,38 @@
+{% extends "layout.njk" %}
+{% block head %}
+
+  <title>Vídeos - Eloilson Rocha</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+{% endblock %}
+{% block content %}
+
+  <div id="wrapper">
+    <h1>Vídeos que recomendo</h1>
+  </div>
+  <section class="cards">
+    {%for item in items %}
+      <div class="card" id="{{item.id}}">
+        <div class="card_image_container {{'favorite-wrapper' if item.favorite }}">
+          <img src="https://img.youtube.com/vi/{{item.id}}/hqdefault.jpg" alt="Imagem de {{item.title}}"/>
+          {% if item.favorite %}
+            <div class="favorite">
+              Favorito
+            </div>
+            {%endif%}
+          </div>
+          <hr/>
+          <div class="card_content">
+            <h1>{{item.title}}</h1>
+          </div>
+          <div class="card_info">
+            <p>
+              {{item.description}}
+            </p>
+          </div>
+        </div>
+        {%endfor%}
+      </section>
+      <script src="scripts.js"></script>
+    {% endblock %}
