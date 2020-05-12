@@ -178,4 +178,24 @@ button[type="submit"] {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+  outline: none;
+}
+
+.button {
+  display: block;
+  padding: 8px 32px;
+  background-color: var(--primery-color);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  margin-top: 32px;
+}
+
+button:active,
+.button:active {
+  filter: brightness(2);
 }

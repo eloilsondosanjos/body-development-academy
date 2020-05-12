@@ -1,8 +1,8 @@
 const fs = require("fs");
 const data = require("./data.json");
-const { age } = require("./utils");
+const { age, date, formatDate } = require("./utils");
 
-exports.show = function (req, res) {
+exports.list = function (req, res) {
   const { id } = req.params;
 
   const foundInstructor = data.instructors.find(function (instructor) {
@@ -17,15 +17,16 @@ exports.show = function (req, res) {
     ...foundInstructor,
     age: age(foundInstructor.birth),
     services: foundInstructor.services.split(","),
-    created_at: new Intl.DateTimeFormat("pt-BR").format(
+    created_at: formatDate(
       foundInstructor.created_at
-    ),
+    ) /*new Intl.DateTimeFormat("pt-BR").format(
+      foundInstructor.created_at*/,
   };
 
   return res.render("instructors/show.njk", { instructor });
 };
 
-exports.post = function (req, res) {
+exports.create = function (req, res) {
   const keys = Object.keys(req.body);
 
   for (key of keys) {
@@ -55,6 +56,23 @@ exports.post = function (req, res) {
 
     return res.redirect("/instructors");
   });
+};
 
-  //return res.send(req.body);
+exports.edit = function (req, res) {
+  const { id } = req.params;
+
+  const foundInstructor = data.instructors.find(function (instructor) {
+    return instructor.id == id;
+  });
+
+  if (!foundInstructor) {
+    return res.send("Instructor not found");
+  }
+
+  const instructor = {
+    ...foundInstructor,
+    birth: date(foundInstructor.birth),
+  };
+
+  return res.render("instructors/edit.njk", { instructor });
 };
