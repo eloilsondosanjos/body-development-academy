@@ -1,6 +1,6 @@
 const fs = require("fs");
-const data = require("./data.json");
-const { age, date, formatDate } = require("./utils");
+const data = require("../data.json");
+const { age, date, formatDate } = require("../utils");
 
 exports.index = function (req, res) {
   return res.render("instructors/index.njk", { instructors: data.instructors });
@@ -31,6 +31,10 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
+  return res.render("instructors/create.njk");
+};
+
+exports.post = function (req, res) {
   const keys = Object.keys(req.body);
 
   for (key of keys) {
@@ -81,7 +85,7 @@ exports.edit = function (req, res) {
   return res.render("instructors/edit.njk", { instructor });
 };
 
-exports.update = function (req, res) {
+exports.put = function (req, res) {
   const { id } = req.body;
   let index = 0;
 

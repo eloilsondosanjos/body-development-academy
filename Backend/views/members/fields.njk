@@ -1,0 +1,34 @@
+<div class="item">
+    <div>Avatar URL</div>
+    <div>
+        <input type="url" name="avatar_url" placeholder="http://" value="{{ member.avatar_url}}">
+    </div>
+</div>
+<div class="item">
+    <div>Member</div>
+    <div>
+        <input type="text" name="name" placeholder="Nome do Member" value="{{ member.name }}">
+
+    </div>
+</div>
+<div class="item">
+    <div>Data de Nascimento</div>
+    <div>
+        <input type="date" name="birth" value="{{ member.birth }}">
+    </div>
+</div>
+<div class="item">
+    <div>Sexo</div>
+    <div>
+        <span><input type="radio" name="gender" value="M" {% if member.gender == "M" %} checked="checked" {% endif %}>Masculino</span>
+        <span><input type="radio" name="gender" value="F" {% if member.gender == "F" %} checked="checked" {% endif %}>Feminino</span>
+    </div>
+</div>
+<div class="item">
+    <div>Área de atuação</div>
+    <div>
+        <input type="text" name="services" placeholder="Musculação, Crossfit, Treino Laboral..." value="{{ member.services }}">
+    </div>
+</div>
+
+<button type="submit">Salvar</button>

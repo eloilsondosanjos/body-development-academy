@@ -1,22 +1,23 @@
 {
+  "members": [],
   "instructors": [
-    {
-      "id": 1,
-      "avatar_url": "https://fotos.sapo.pt/homemdebem/pic/0003yrq8",
-      "name": "Maria de Lourdes da Silva Coelho Rocha",
-      "services": "Musculação, Pilates, Raparigagem",
-      "gender": "F",
-      "birth": 691977600000,
-      "created_at": 1589133507900
-    },
     {
       "id": 2,
       "avatar_url": "https://avatars0.githubusercontent.com/u/59416393?s=460&u=028ddf3943aa1e534f6f552dc60362d7cfbd72e4&v=4",
       "name": "Eloilson dos Anjos Rocha",
       "birth": 568857600000,
       "gender": "M",
-      "services": "Musculação, Pilates",
+      "services": "Desenvolvimento",
       "created_at": 1589133651343
+    },
+    {
+      "id": 1,
+      "avatar_url": "https://media.metrolatam.com/2018/06/28/miakhalifa-7a8f07fefca7cdea5683987282c812a2-1200x600.jpg",
+      "name": "Mia Linda",
+      "birth": 660009600000,
+      "gender": "F",
+      "services": "Faz tudo, E mais um pouco",
+      "created_at": 1589400560724
     }
   ]
 }

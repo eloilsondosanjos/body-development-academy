@@ -1,27 +1,26 @@
-const express = require("./node_modules/express");
+const express = require("express");
 const routes = express.Router();
-const instructors = require("./instrutors");
+const instructors = require("./controllers/instructors");
+const members = require("./controllers/members");
 
 routes.get("/", function (req, res) {
   return res.redirect("/instructors");
 });
 
 routes.get("/instructors", instructors.index);
-
-routes.get("/instructors/create", function (req, res) {
-  return res.render("instructors/create.njk");
-});
-
+routes.get("/instructors/create", instructors.create);
 routes.get("/instructors/:id", instructors.list);
-
 routes.get("/instructors/:id/edit", instructors.edit);
-
-routes.post("/instructors", instructors.create);
-routes.put("/instructors", instructors.update);
+routes.post("/instructors", instructors.post);
+routes.put("/instructors", instructors.put);
 routes.delete("/instructors", instructors.delete);
 
-routes.get("/members", function (req, res) {
-  return res.send("members");
-});
+routes.get("/members", members.index);
+routes.get("/members/create", members.create);
+routes.get("/members/:id", members.list);
+routes.get("/members/:id/edit", members.edit);
+routes.post("/members", members.post);
+routes.put("/members", members.put);
+routes.delete("/members", members.delete);
 
 module.exports = routes;
