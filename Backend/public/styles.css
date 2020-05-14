@@ -2,11 +2,12 @@
 
 /* Paleta de cores massa
 
-#01CCFF  #0A1A3F #1F3567 #38FFEB #7159c1;*/
+#01CCFF  #0A1A3F #1F3567 #38FFEB #7159c1 #F08080;*/
 
 :root {
-  --primery-color: #7159c1;
+  --primery-color: #01ccff;
   --secundary-color: #f7df1e;
+  --ternary-color: #f08080;
 }
 
 * {
@@ -196,13 +197,14 @@ button[type="submit"] {
 }
 
 button:active,
-.button:active {
+.button:active,
+.button-cadastrar:active {
   filter: brightness(2);
 }
 
 #form-delete button[type="submit"] {
   margin-top: 8px;
-  background-color: lightcoral;
+  background-color: #f08080;
 }
 
 /*======== INDEX INSTRUCTORS ========*/
@@ -211,6 +213,7 @@ button:active,
   display: block;
   padding: 40px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .table-container table {
@@ -219,6 +222,22 @@ button:active,
 
 .table-container thead tr th {
   text-align: left;
+}
+
+.button-cadastrar {
+  display: block;
+  padding: 8px 16px;
+  background-color: var(--primery-color);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  position: absolute;
+  bottom: 30px;
+  right: 60px;
 }
 
 td,
@@ -233,9 +252,9 @@ th {
   font-size: 14px;
 }
 
-tbody tr:last-child td {
+/* tbody tr:last-child td {
   border-bottom: none;
-}
+} */
 
 tbody tr td:first-child {
   display: grid;
@@ -254,11 +273,11 @@ tbody tr td:first-child span {
 }
 
 tbody tr td:last-child a {
-  background-color: var(--primery-color);
-  padding: 8px 16px;
+  background-color: var(--secundary-color);
+  padding: 6px 12px;
   text-decoration: none;
   text-transform: uppercase;
-  color: #fff;
+  color: #333;
   font-size: 11px;
   border-radius: 4px;
 }
