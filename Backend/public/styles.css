@@ -144,7 +144,8 @@ header {
 
 /*======== FORM ========*/
 
-input {
+input,
+select {
   width: 100%;
   outline: none;
   vertical-align: middle;
