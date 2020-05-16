@@ -1,9 +1,12 @@
 const { age, date } = require("../../lib/utils");
+const db = require("../../config/db");
 
 module.exports = {
   index(req, res) {
-    return res.render("instructors/index.njk", {
-      instructors: data.instructors,
+    db.query(`SELECT * FROM instructors`, function (err, results) {
+      if (err) return res.send("Database Error!");
+
+      return res.render("instructors/index.njk", { instructors: results.rows });
     });
   },
 
@@ -20,7 +23,28 @@ module.exports = {
       }
     }
 
-    let { avatar_url, birth, name, services, gender } = req.body;
+    const query = `INSERT INTO instructors (
+      avatar_url, 
+      name, 
+      birth, 
+      services, 
+      gender,
+      created_at
+    ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
+
+    const values = [
+      req.body.avatar_url,
+      req.body.name,
+      date(req.body.birth).iso,
+      req.body.services,
+      req.body.gender,
+      date(Date.now()).iso,
+    ];
+
+    db.query(query, values, function (err, results) {
+      if (err) return res.send("Database Error!");
+      return res.redirect(`/instructors/${rows[0].id}`);
+    });
 
     return;
   },
