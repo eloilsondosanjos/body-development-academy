@@ -70,7 +70,7 @@ header {
 .card {
   background-color: #fff;
   width: 800px;
-  min-height: 400px;
+  min-height: 450px;
 
   margin: 45px auto;
 
@@ -238,7 +238,7 @@ button:active,
   text-decoration: none;
   position: absolute;
   bottom: 30px;
-  right: 60px;
+  right: 70px;
 }
 
 td,
