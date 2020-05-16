@@ -1,33 +1,9 @@
 const fs = require("fs");
 const data = require("../data.json");
-const { age, date, formatDate } = require("../utils");
+const { date } = require("../utils");
 
 exports.index = function (req, res) {
   return res.render("members/index.njk", { members: data.members });
-};
-
-exports.list = function (req, res) {
-  const { id } = req.params;
-
-  const foundMember = data.members.find(function (member) {
-    return member.id == id;
-  });
-
-  if (!foundMember) {
-    return res.send("Member not found");
-  }
-
-  const member = {
-    ...foundMember,
-    age: age(foundMember.birth),
-    services: foundMember.services.split(","),
-    created_at: formatDate(
-      foundMember.created_at
-    ) /*new Intl.DateTimeFormat("pt-BR").format(
-      foundMember.created_at*/,
-  };
-
-  return res.render("members/show.njk", { member });
 };
 
 exports.create = function (req, res) {
@@ -43,27 +19,45 @@ exports.post = function (req, res) {
     }
   }
 
-  let { avatar_url, birth, name, services, gender } = req.body;
+  birth = Date.parse(req.body.birth);
 
-  birth = Date.parse(birth);
-  const created_at = Date.now();
-  const id = Number(data.members.length);
+  let id = 1;
+  const lastMember = data.members[data.members.length - 1];
+
+  if (lastMember) {
+    id = lastMember.id + 1;
+  }
 
   data.members.push({
     id,
-    avatar_url,
-    name,
+    ...req.body,
     birth,
-    gender,
-    services,
-    created_at,
   });
 
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
     if (err) return res.send("Write file error!");
 
-    return res.redirect("/members");
+    return res.redirect(`/members/${id}`);
   });
+};
+
+exports.show = function (req, res) {
+  const { id } = req.params;
+
+  const foundMember = data.members.find(function (member) {
+    return member.id == id;
+  });
+
+  if (!foundMember) {
+    return res.send("Member not found");
+  }
+
+  const member = {
+    ...foundMember,
+    birth: date(foundMember.birth).birthDayMonth,
+  };
+
+  return res.render("members/show.njk", { member });
 };
 
 exports.edit = function (req, res) {
@@ -79,7 +73,7 @@ exports.edit = function (req, res) {
 
   const member = {
     ...foundMember,
-    birth: date(foundMember.birth),
+    birth: date(foundMember.birth).iso,
   };
 
   return res.render("members/edit.njk", { member });
