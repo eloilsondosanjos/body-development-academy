@@ -9,6 +9,7 @@ module.exports = {
       callback(results.rows);
     });
   },
+
   create(data, callback) {
     const query = `INSERT INTO instructors (
         avatar_url, 
@@ -34,6 +35,7 @@ module.exports = {
       callback(results.rows[0]);
     });
   },
+
   find(id, callback) {
     db.query(
       `SELECT * 
