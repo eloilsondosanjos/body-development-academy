@@ -1,12 +1,10 @@
+const Instructor = require("../models/Instructor");
 const { age, date } = require("../../lib/utils");
-const db = require("../../config/db");
 
 module.exports = {
   index(req, res) {
-    db.query(`SELECT * FROM instructors`, function (err, results) {
-      if (err) return res.send("Database Error!");
-
-      return res.render("instructors/index.njk", { instructors: results.rows });
+    Instructor.all(function (instructors) {
+      return res.render("instructors/index.njk", { instructors });
     });
   },
 
@@ -23,34 +21,21 @@ module.exports = {
       }
     }
 
-    const query = `INSERT INTO instructors (
-      avatar_url, 
-      name, 
-      birth, 
-      services, 
-      gender,
-      created_at
-    ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
-
-    const values = [
-      req.body.avatar_url,
-      req.body.name,
-      date(req.body.birth).iso,
-      req.body.services,
-      req.body.gender,
-      date(Date.now()).iso,
-    ];
-
-    db.query(query, values, function (err, results) {
-      if (err) return res.send("Database Error!");
-      return res.redirect(`/instructors/${rows[0].id}`);
+    Instructor.create(req.body, function (instructor) {
+      return res.redirect(`/instructors/${instructor.id}`);
     });
-
-    return;
   },
 
   show(req, res) {
-    return;
+    Instructor.find(req.params.id, function (instructor) {
+      if (!Instructor) return res.send("Instructor not found!");
+
+      instructor.age = age(instructor.birth);
+      instructor.services = instructor.services.split(",");
+      instructor.created_at = date(instructor.created_at).birthBr;
+
+      return res.render("instructors/show.njk", { instructor });
+    });
   },
 
   edit(req, res) {
