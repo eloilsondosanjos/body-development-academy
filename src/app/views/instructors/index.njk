@@ -6,6 +6,7 @@
         <table width="100%">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Instrutor</th>
                     <th>Atendimento</th>
                     <th>Ação</th>
@@ -14,7 +15,8 @@
             <tbody>
                 {% for instructor in instructors %}
                     <tr>
-                        <td>
+                        <td>{{ instructor.id }}</td>
+                        <td class="avatar_nome">
                             <span style="background-image: url({{ instructor.avatar_url }})"></span>
                             {{ instructor.name }}</td>
                         <td>{{ instructor.services}}</td>

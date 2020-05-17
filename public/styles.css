@@ -254,13 +254,13 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
-tbody tr td:first-child {
+tbody tr td.avatar_nome {
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 70px 1fr;
   align-items: center;
 }
 
-tbody tr td:first-child span {
+tbody tr td.avatar_nome span {
   width: 48px;
   height: 48px;
   background-position: center;
