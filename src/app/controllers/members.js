@@ -1,8 +1,11 @@
+const Member = require("../models/Member");
 const { age, date } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    return res.render("members/index.njk");
+    Member.all(function (members) {
+      return res.render("members/index.njk", { members });
+    });
   },
 
   create(req, res) {
@@ -17,14 +20,30 @@ module.exports = {
         return res.send("Please, fill all fields!");
       }
     }
+
+    Member.create(req.body, function (member) {
+      return res.redirect(`/members/${member.id}`);
+    });
   },
 
   show(req, res) {
-    return;
+    Member.find(req.params.id, function (member) {
+      if (!member) return res.send("Member not found!");
+
+      member.birth = date(member.birth).birthDayMonth;
+
+      return res.render("members/show.njk", { member });
+    });
   },
 
   edit(req, res) {
-    return;
+    Member.find(req.params.id, function (member) {
+      if (!member) return res.send("Member not found!");
+
+      member.birth = date(member.birth).iso;
+
+      return res.render("members/edit.njk", { member });
+    });
   },
 
   put(req, res) {
@@ -35,9 +54,15 @@ module.exports = {
         return res.send("Please, fill all fields!");
       }
     }
+
+    Member.update(req.body, function () {
+      return res.redirect(`/members/${req.body.id}`);
+    });
   },
 
   delete(req, res) {
-    return;
+    Member.delete(req.body.id, function () {
+      return res.redirect(`/members`);
+    });
   },
 };
