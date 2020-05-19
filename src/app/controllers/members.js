@@ -1,5 +1,5 @@
 const Member = require("../models/Member");
-const { age, date } = require("../../lib/utils");
+const { date } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
@@ -9,7 +9,9 @@ module.exports = {
   },
 
   create(req, res) {
-    return res.render("members/create.njk");
+    Member.instructorsSelectOptions(function (options) {
+      return res.render("members/create.njk", { instructorOptions: options });
+    });
   },
 
   post(req, res) {
@@ -42,7 +44,12 @@ module.exports = {
 
       member.birth = date(member.birth).iso;
 
-      return res.render("members/edit.njk", { member });
+      Member.instructorsSelectOptions(function (options) {
+        return res.render("members/edit.njk", {
+          member,
+          instructorOptions: options,
+        });
+      });
     });
   },
 

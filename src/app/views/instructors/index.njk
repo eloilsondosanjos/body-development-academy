@@ -2,24 +2,32 @@
 
 {% block content %}
     <div class="card table-container">
-        <a class="button-cadastrar" href="/instructors/create">+ Novo</a>
+        <div class="header">
+            <a class="button-cadastrar" href="/instructors/create">+ Novo</a>
+            <form action="/instructors" method="GET">
+                <input type="text" name="filter" placeholder="Filtrar por Nome">
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
         <table width="100%">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    {# <th>Id</th> #}
                     <th>Instrutor</th>
                     <th>Atendimento</th>
+                    <th>Alunos</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
                 {% for instructor in instructors %}
                     <tr>
-                        <td>{{ instructor.id }}</td>
+                        {# <td>{{ instructor.id }}</td> #}
                         <td class="avatar_nome">
                             <span style="background-image: url({{ instructor.avatar_url }})"></span>
                             {{ instructor.name }}</td>
                         <td>{{ instructor.services}}</td>
+                        <td>{{ instructor.total_students}}</td>
                         <td>
                             <a href="/instructors/{{ instructor.id }}">Detalhes</a>
                         </td>

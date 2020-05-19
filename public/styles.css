@@ -235,7 +235,6 @@ button:active,
   cursor: pointer;
   outline: none;
   text-decoration: none;
-  margin-bottom: 16px;
 }
 
 td,
@@ -256,7 +255,7 @@ tbody tr:last-child td {
 
 tbody tr td.avatar_nome {
   display: grid;
-  grid-template-columns: 70px 1fr;
+  grid-template-columns: 65px 1fr;
   align-items: center;
 }
 
@@ -283,4 +282,33 @@ tbody tr td:last-child a {
 .table-container thead tr th:last-child,
 td:last-child {
   text-align: center;
+}
+
+.table-container div.header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  margin-bottom: 32px;
+}
+
+.table-container div.header a.button-cadastrar {
+  width: 80px;
+  padding: 8px 16px;
+}
+
+.table-container div.header form {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  align-items: center;
+  grid-gap: 8px;
+}
+
+.table-container div.header form button {
+  margin: 0px;
+  padding: 11px 16px;
+}
+
+.table-container div.header form input {
+  border: 1.5px solid #eee;
+  padding: 8px 16px;
+  box-sizing: border-box;
 }
