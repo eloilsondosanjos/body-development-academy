@@ -1,4 +1,4 @@
-const { age, date } = require('../../lib/utils');
+const { date } = require('../../lib/utils');
 const db = require('../../config/db');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
               LEFT JOIN members ON (members.instructor_id = instructors.id)
               GROUP BY instructors.id ORDER BY total_students  DESC`,
       function (err, results) {
-        if (err) throw `Database Error! ${err}`;
+        if (err) throw new Error(`Database Error! ${err}`);
 
         callback(results.rows);
       },
@@ -36,7 +36,7 @@ module.exports = {
     ];
 
     db.query(query, values, function (err, results) {
-      if (err) throw `Database Error! ${err}`;
+      if (err) throw new Error(`Database Error! ${err}`);
 
       callback(results.rows[0]);
     });
@@ -49,7 +49,7 @@ module.exports = {
     WHERE id = $1`,
       [id],
       function (err, results) {
-        if (err) throw `Database Error! ${err}`;
+        if (err) throw new Error(`Database Error! ${err}`);
 
         callback(results.rows[0]);
       },
@@ -66,7 +66,7 @@ module.exports = {
               GROUP BY instructors.id
               ORDER BY total_students  DESC`,
       function (err, results) {
-        if (err) throw `Database Error! ${err}`;
+        if (err) throw new Error(`Database Error! ${err}`);
 
         callback(results.rows);
       },
@@ -93,7 +93,7 @@ module.exports = {
     ];
 
     db.query(query, values, function (err, results) {
-      if (err) throw `Database Error! ${err}`;
+      if (err) throw new Error(`Database Error! ${err}`);
 
       callback();
     });
@@ -104,7 +104,7 @@ module.exports = {
       err,
       results,
     ) {
-      if (err) throw `Database Error! ${err}`;
+      if (err) throw new Error(`Database Error! ${err}`);
 
       return callback();
     });
@@ -141,7 +141,7 @@ module.exports = {
     GROUP BY instructors.id LIMIT $1 OFFSET $2`;
 
     db.query(query, [limit, offset], function (err, results) {
-      if (err) throw `Database Error! ${err}`;
+      if (err) throw new Error(`Database Error! ${err}`);
 
       callback(results.rows);
     });

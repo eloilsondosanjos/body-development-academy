@@ -30,19 +30,19 @@ module.exports = {
 
   show(req, res) {
     Member.find(req.params.id, function (member) {
-      if (!member) return res.send("Member not found!");
+      if (!member) return res.send("Member not found!")
 
-      member.birth = date(member.birth).birthDayMonth;
+      member.birth = date(member.birth).birthDayMonth
 
-      return res.render("members/show.njk", { member });
-    });
+      return res.render("members/show.njk", { member })
+    })
   },
 
   edit(req, res) {
     Member.find(req.params.id, function (member) {
-      if (!member) return res.send("Member not found!");
+      if (!member) return res.send("Member not found!")
 
-      member.birth = date(member.birth).iso;
+      member.birth = date(member.birth).iso
 
       Member.instructorsSelectOptions(function (options) {
         return res.render("members/edit.njk", {
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   put(req, res) {
-    const keys = Object.keys(req.body);
+    const keys = Object.keys(req.body)
 
     for (key of keys) {
       if (req.body[key] == "") {
