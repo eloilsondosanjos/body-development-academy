@@ -1,5 +1,5 @@
-const Instructor = require("../models/Instructor");
-const { age, date } = require("../../lib/utils");
+const Instructor = require('../models/Instructor');
+const { age, date } = require('../../lib/utils');
 
 module.exports = {
   index(req, res) {
@@ -8,7 +8,7 @@ module.exports = {
     page = page || 1;
     limit = limit || 2;
 
-    let offset = limit * (page - 1);
+    const offset = limit * (page - 1);
 
     const params = {
       filter,
@@ -16,35 +16,31 @@ module.exports = {
       limit,
       offset,
       callback(instructors) {
-        return res.render("instructors/index.njk", { instructors, filter });
+        const pagination = {
+          total: Math.ceil(instructors[0].total / limit),
+          page,
+        };
+        return res.render('instructors/index.njk', {
+          instructors,
+          pagination,
+          filter,
+        });
       },
     };
 
     Instructor.paginate(params);
-
-    //   const { filter } = req.query;
-
-    //   if (filter) {
-    //     Instructor.findBy(filter, function (instructors) {
-    //       return res.render("instructors/index.njk", { instructors, filter });
-    //     });
-    //   } else {
-    //     Instructor.all(function (instructors) {
-    //       return res.render("instructors/index.njk", { instructors });
-    //     });
-    //   }
   },
 
   create(req, res) {
-    return res.render("instructors/create.njk");
+    return res.render('instructors/create.njk');
   },
 
   post(req, res) {
     const keys = Object.keys(req.body);
 
     for (key of keys) {
-      if (req.body[key] == "") {
-        return res.send("Please, fill all fields!");
+      if (req.body[key] == '') {
+        return res.send('Please, fill all fields!');
       }
     }
 
@@ -55,23 +51,23 @@ module.exports = {
 
   show(req, res) {
     Instructor.find(req.params.id, function (instructor) {
-      if (!instructor) return res.send("Instructor not found!");
+      if (!instructor) return res.send('Instructor not found!');
 
       instructor.age = age(instructor.birth);
-      instructor.services = instructor.services.split(",");
+      instructor.services = instructor.services.split(',');
       instructor.created_at = date(instructor.created_at).birthBr;
 
-      return res.render("instructors/show.njk", { instructor });
+      return res.render('instructors/show.njk', { instructor });
     });
   },
 
   edit(req, res) {
     Instructor.find(req.params.id, function (instructor) {
-      if (!instructor) return res.send("Instructor not found!");
+      if (!instructor) return res.send('Instructor not found!');
 
       instructor.birth = date(instructor.birth).iso;
 
-      return res.render("instructors/edit.njk", { instructor });
+      return res.render('instructors/edit.njk', { instructor });
     });
   },
 
@@ -79,8 +75,8 @@ module.exports = {
     const keys = Object.keys(req.body);
 
     for (key of keys) {
-      if (req.body[key] == "") {
-        return res.send("Please, fill all fields!");
+      if (req.body[key] == '') {
+        return res.send('Please, fill all fields!');
       }
     }
 

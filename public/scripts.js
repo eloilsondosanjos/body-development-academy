@@ -1,36 +1,50 @@
 const currentPage = location.pathname;
-const menuItems = document.querySelectorAll("header .links a");
+const menuItems = document.querySelectorAll('header .links a');
 
 for (item of menuItems) {
-  if (currentPage.includes(item.getAttribute("href"))) {
-    item.classList.add("active");
+  if (currentPage.includes(item.getAttribute('href'))) {
+    item.classList.add('active');
   }
 }
 
 // Paginação
 
-let totalPages = 20,
-  selectedPages = 5,
-  pages = [],
-  oldPage;
+function paginate(selectedPage, totalPages) {
+  const pages = [];
+  let oldPage;
 
-for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
-  const firtsAndLastPage = currentPage == 1 || currentPage == totalPages;
-  const pagesAfterSelectedPage = currentPage <= selectedPages + 2;
-  const pagesBeforeSelectedPage = currentPage >= selectedPages - 2;
+  for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
+    const firtsAndLastPage = currentPage == 1 || currentPage == totalPages;
+    const pagesAfterSelectedPage = currentPage <= selectedPage + 2;
+    const pagesBeforeSelectedPage = currentPage >= selectedPage - 2;
 
-  if (firtsAndLastPage || (pagesBeforeSelectedPage && pagesAfterSelectedPage)) {
-    if (oldPage && currentPage - oldPage > 2) {
-      pages.push("...");
+    if (
+      firtsAndLastPage ||
+      (pagesBeforeSelectedPage && pagesAfterSelectedPage)
+    ) {
+      if (oldPage && currentPage - oldPage > 2) {
+        pages.push('...');
+      }
+
+      if (oldPage && currentPage - oldPage == 2) {
+        pages.push(oldPage + 1);
+      }
+      pages.push(currentPage);
+
+      oldPage = currentPage;
     }
-
-    if (oldPage && currentPage - oldPage == 2) {
-      pages.push(oldPage + 1);
-    }
-    pages.push(currentPage);
-
-    oldPage = currentPage;
   }
+
+  return pages;
 }
 
-console.log(pages);
+const pagination = document.querySelector('.pagination');
+const page = +pagination.dataset.page;
+const total = +pagination.dataset.total;
+const pages = paginate(page, total);
+
+let elements = '';
+
+for (const page of pages) {
+  elements += `<a href="#">${page} </a>`;
+}
